@@ -80,6 +80,7 @@ header{
 }
 .carts img{
     width: 100%;
+    height: 100%;
 }
 .carts p{
     font-family: system-ui;
