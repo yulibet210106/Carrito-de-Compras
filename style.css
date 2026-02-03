@@ -41,7 +41,7 @@ header{
 .logo{
     width: 84px;
     height: 84px;
-    cursor: pointer;
+    object-fit: contain;
 }
 
 .cart{
@@ -79,8 +79,9 @@ header{
     margin-bottom: 40px;
 }
 .carts img{
-    width: 100%;
-    height: 100%;
+     width: 100%;
+    height: 200px;
+    object-fit: cover;
 }
 .carts p{
     font-family: system-ui;
@@ -120,7 +121,9 @@ header{
 
 /*float cart*/
 .cart-products .item img{
-    width: 115px;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
 }
 
 .cart-products .item{

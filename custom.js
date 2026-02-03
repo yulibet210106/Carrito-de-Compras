@@ -17,6 +17,10 @@ function loadEventListenrs(){
     containerBuyCart.addEventListener('click', deleteProduct);
 }
 
+function cleanPrice(price) {
+    return Number(price.replace(/\./g, ''));
+}
+
 function addProduct(e){
     e.preventDefault();
     if (e.target.classList.contains('btn-add-cart')) {
@@ -29,11 +33,9 @@ function deleteProduct(e) {
     if (e.target.classList.contains('delete-product')) {
         const deleteId = e.target.getAttribute('data-id');
 
-        buyThings.forEach(value => {
-            if (value.id == deleteId) {
-                let priceReduce = parseFloat(value.price) * parseFloat(value.amount);
-                totalCard =  totalCard - priceReduce;
-                totalCard = totalCard.toFixed(2);
+        buyThings.forEach(product => {
+            if (product.id === deleteId) {
+                totalCard -= cleanPrice(product.price) * product.amount;
             }
         });
         buyThings = buyThings.filter(product => product.id !== deleteId);
@@ -42,6 +44,7 @@ function deleteProduct(e) {
     }
     //FIX: El contador se quedaba con "1" aunque ubiera 0 productos
     if (buyThings.length === 0) {
+        totalCard = 0;
         priceTotal.innerHTML = 0;
         amountProduct.innerHTML = 0;
     }
@@ -57,22 +60,18 @@ function readTheContent(product){
         amount: 1
     }
 
-    totalCard = parseFloat(totalCard) + parseFloat(infoProduct.price);
-    totalCard = totalCard.toFixed(2);
+    totalCard += cleanPrice(infoProduct.price);
 
     const exist = buyThings.some(product => product.id === infoProduct.id);
-    if (exist) {
-        const pro = buyThings.map(product => {
-            if (product.id === infoProduct.id) {
-                product.amount++;
-                return product;
-            } else {
-                return product
+     if (exist) {
+        buyThings = buyThings.map(item => {
+            if (item.id === infoProduct.id) {
+                item.amount++;
             }
+            return item;
         });
-        buyThings = [...pro];
     } else {
-        buyThings = [...buyThings, infoProduct]
+        buyThings = [...buyThings, infoProduct];
         countProduct++;
     }
     loadHtml();
@@ -97,8 +96,7 @@ function loadHtml(){
 
         containerBuyCart.appendChild(row);
 
-        priceTotal.innerHTML = totalCard;
-
+        priceTotal.innerHTML = totalCard.toLocaleString();
         amountProduct.innerHTML = countProduct;
     });
 }
