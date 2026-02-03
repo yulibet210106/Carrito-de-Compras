@@ -126,11 +126,21 @@ header{
     object-fit: cover;
 }
 
-.cart-products .item{
+.cart-products .item .delete-product{
+    width: 22px;
+    height: 22px;
+    background-color: red;
+    color: #fff;
     display: flex;
     align-items: center;
-    border-bottom: solid 2px red;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    flex-shrink: 0;
 }
+
 .cart-products .item .item-content{
     margin: 0 19px;
     width: 201px;
